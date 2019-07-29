@@ -15,7 +15,7 @@ div.container {
 h1 {
     text-align: center;
     font-size: 2em;
-    padding: 0px 0px 5px 0px;  
+    padding: 0px 0px 5px 0px; 
 }
   
 p {
@@ -46,6 +46,10 @@ p.blog-details{
     text-align: end;
 }
 
+p.bold{
+    font-weight:bold;
+}
+
 </style>
 </head>
 <body>
@@ -62,9 +66,9 @@ p.blog-details{
 <p>(2) Visual Studio Professional 2017. You can also opt for other versions of VS / Visual Studio Code as per your convenience.</p> 
 <p class="heading">Actual Work : </p> 
 <p>(Note :If you are familiar with creating projects in Visual Studio, you can directly jump to step number 2)</p> 
-<p>Step (1) : Create a new project in Visual Studio.</p> 
+<p class="bold">Step (1) : Create a new project in Visual Studio.</p> 
 <p>Go to File -> New -> Project. From the templates, under Visual C# section, select .NET Core. Select ASP.NET Core Web Application project. Give desired project name and location and click OK. From the new window , select ASP.NET Core version 2.1 and API template. Click OK. Now , your new project will load in the solution explorer with a default ValuesController under controller folder. (You can delete this controller as and when required , for now, let us add a new controller and get started). Go to appsettings.json and add a new key named AzureAD which will have all the values that we need. These values would be those that we noted while registering our application on Azure AD (mentioned in prerequisites (1)). After adding this code, your appsetting.json would look as following</p> 
-<p>appsetting.json</p>
+<p class="bold">appsetting.json</p>
 <p class="code">
     { 
         "Logging": 
@@ -82,12 +86,12 @@ p.blog-details{
         } 
     }
 </p> 
-<p>Step (2) : Creating Models.</p> 
+<p class="bold">Step (2) : Creating Models.</p> 
 <p>Right click on the project name in solution explorer , select Add -> New Folder. Name it as Models. Right click the Models folder , select Add -> Class.
         We would be adding 3 class files , namely AzureAD.cs, Group.cs and User.cs
         The classes are ass follows:
         </p> 
-<p>AzureAD.cs</p> 
+<p class="bold">AzureAD.cs</p> 
 <p class="code">
     public class AzureAD 
     { 
@@ -99,7 +103,7 @@ p.blog-details{
         public string GraphResourceEndPoint { get; set; } 
     }
 </p> 
-<p>Group.cs</p> 
+<p class="bold">Group.cs</p> 
 <p class="code">
     public class Group 
     { 
@@ -116,7 +120,7 @@ p.blog-details{
     }
         
 </p> 
-<p>User.cs</p> 
+<p class="bold">User.cs</p> 
 <p class="code">
     public class User 
     { 
@@ -136,9 +140,9 @@ p.blog-details{
     }
 </p> 
 <p>The AzureAD models class would be used while getting values from out config file (from appsettings.json) and the other 2 classes , as their names suggest, would be used while actually retrieving data from the AD. Our models are ready. Lets head to the next step.</p> 
-<p>Step (3) : Adding a Controller</p> 
+<p class="bold">Step (3) : Adding a Controller</p> 
 <p>Right click the Controllers folder, select Add -> Controller. Give name as MyDirectory (MyDirectoryController is the desired name) and click Add. Add the following code to MyDirectoryController.cs</p> 
-<p>MyDirectoryController.cs</p> 
+<p class="bold">MyDirectoryController.cs</p> 
 <p class="code">
         using System.Collections.Generic; 
         using System.Threading.Tasks; 
@@ -289,9 +293,9 @@ p.blog-details{
         }
 </p> 
 <p>Now , we have implemented 4 methods. These methods would serve the purpose exactly how their names suggest i.e. get user by id, get all users from the AD, get group by id and get all groups from the AD respectively. The 2 things that are missing now are MicrosoftGraphClient and CopyHandler. Head over to next steps for the same.</p> 
-<p>Step (4) : Adding MicrosoftGraphClient </p> 
+<p class="bold">Step (4) : Adding MicrosoftGraphClient </p> 
 <p>Add a new folder in out project as we did earlier and name it as Services. Add a new class to this folder which would be MicrosoftGraphClient.cs The following code goes there</p> 
-<p>MicrosoftGraphClient.cs</p>
+<p class="bold">MicrosoftGraphClient.cs</p>
 <p class="code">
         using WebApiWithGraph.Models; 
         using Microsoft.Extensions.Configuration; 
@@ -362,9 +366,9 @@ p.blog-details{
 <p>The GetGraphServiceClient  method will call GetAuthProvider method internally and return that value along with graphAPIEndpoint (which is constructed in SetAzureADOptions method ).</p>
 <p>The GetAuthProvider method would take our client id and secret and authenticate these credentials with the graph resource (i.e. https://graph.microsoft.com/) and get a token for us. This token is the bearer token that is required to pass in the header of all the requests made to the Microsoft Graph API.</p>
 <p>Thus, in a nutshell, the MicrosoftGraphClient authenticates our credentials with the graph resource and returns a client to the controller. Now, in the controller, we can request and retrieve the desired  data from this client. Now, we are almost at the end of our work. You can head to the last step now i.e. Step 5.</p>
-<p>Step (5) : Adding CopyHandler</p>
+<p class="bold">Step (5) : Adding CopyHandler</p>
 <p>This step can be said to be optional. This handler is used just for type conversion (i.e. to convert the Microsoft.Graph.User to our defined class Models.User , and,  to convert the Microsoft.Graph.Group to our defined class Models.Group). So, you can either use this handler, or you can also handle the type casting then and there in the controller as per your convenience. Add a new class to the Services folder and name it CopyHandler. The following code goes in CopyHandler.cs</p>
-<p>CopyHandler.cs</p>
+<p class="bold">CopyHandler.cs</p>
 <p>using WebApiWithGraph.Models; 
         namespace WebApiWithGraph.Services 
         { 
@@ -394,21 +398,21 @@ p.blog-details{
 <p class="heading">Running the application :</p>
 <p>Now, our coding part is done and we can go ahead and check it's working. This can be done with tools like swagger, advanced rest client, postman, etc , just as we test the APIs for the data. We can also see the output in the browser (I used Chrome) by just changing the URLs. Run the application through Visual Studio using IIS Express in Chrome.</p>
 <p>This will open a new window of Google Chrome with the url somewhat like </p>
-<p>https://localhost:44385/api/values</p>
+<p class="bold">https://localhost:44385/api/values</p>
 <p>Change the url to </p>
-<p>https://localhost:44385/directory/users </p>
+<p class="bold">https://localhost:44385/directory/users </p>
 <p>and hit enter. You should see the list of users from your Azure AD in json format. </p>
 <p>Grab and copy any one user id from the above mentioned data and now change the url to</p>
-<p>https://localhost:44385/directory/users/123abc-12ab-12ab-12ab-12ab12ab</p>
+<p class="bold">https://localhost:44385/directory/users/123abc-12ab-12ab-12ab-12ab12ab</p>
 <p>and hit enter. You should see the json data for that single user!</p>
 <p>Repeat the same for getting groups and group by id. The urls would be</p>
-<p>https://localhost:44385/directory/groups</p>
+<p class="bold">https://localhost:44385/directory/groups</p>
 <p>and</p>
-<p>https://localhost:44385/directory/groups/123abc-12ab-12ab-12ab-12ab12ab</p>
+<p class="bold">https://localhost:44385/directory/groups/123abc-12ab-12ab-12ab-12ab12ab</p>
 <p>respectively.</p>
 <p class="heading">Conclusion :</p>
 <p>So, here I think I should conclude this topic. Hope this post will help you in case you face the same situation that I did. If I have missed anything, let me know in the comments and I'll add it in!</p>
-<p>You can get the <a href="https://github.com/saketadhav/WebApiWithGraph"></a>sample application here.</a></p>
+<p>You can get the <a href="https://github.com/saketadhav/WebApiWithGraph" class="bold">sample application here.</a></p>
 <p>Cheers!</p>
 
 </div>
